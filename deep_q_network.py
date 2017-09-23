@@ -1,11 +1,13 @@
 #!/usr/bin/env python
+#coding=utf-8
+
 from __future__ import print_function
 
 import tensorflow as tf
 import cv2
 import sys
 sys.path.append("game/")
-import wrapped_flappy_bird as game
+import  wrapped_flappy_bird as game
 import random
 import numpy as np
 from collections import deque
@@ -79,7 +81,7 @@ def trainNetwork(s, readout, h_fc1, sess):
     # define the cost function
     a = tf.placeholder("float", [None, ACTIONS])
     y = tf.placeholder("float", [None])
-    readout_action = tf.reduce_sum(tf.mul(readout, a), reduction_indices=1)
+    readout_action = tf.reduce_sum(tf.multiply(readout, a), reduction_indices=1)
     cost = tf.reduce_mean(tf.square(y - readout_action))
     train_step = tf.train.AdamOptimizer(1e-6).minimize(cost)
 
@@ -105,11 +107,19 @@ def trainNetwork(s, readout, h_fc1, sess):
     saver = tf.train.Saver()
     sess.run(tf.initialize_all_variables())
     checkpoint = tf.train.get_checkpoint_state("saved_networks")
+
+    #查看信息
+    print("checkpoint.model_checkpoint_path:",checkpoint.model_checkpoint_path)
+
+    # 训练时，注释以下内容#
+
     if checkpoint and checkpoint.model_checkpoint_path:
         saver.restore(sess, checkpoint.model_checkpoint_path)
         print("Successfully loaded:", checkpoint.model_checkpoint_path)
     else:
         print("Could not find old network weights")
+
+    #训练时，注释以上内容#
 
     # start training
     epsilon = INITIAL_EPSILON

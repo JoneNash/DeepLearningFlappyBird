@@ -1,11 +1,13 @@
-import numpy as np
-import sys
 import random
+import sys
+from itertools import cycle
+
+import numpy as np
 import pygame
-import flappy_bird_utils
 import pygame.surfarray as surfarray
 from pygame.locals import *
-from itertools import cycle
+
+import flappy_bird_utils
 
 FPS = 30
 SCREENWIDTH  = 288
