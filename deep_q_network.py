@@ -114,12 +114,14 @@ def trainNetwork(s, readout, h_fc1, sess):
     # 训练时，注释以下内容#
 
     if checkpoint and checkpoint.model_checkpoint_path:
+        print ("#####1")
         saver.restore(sess, checkpoint.model_checkpoint_path)
         print("Successfully loaded:", checkpoint.model_checkpoint_path)
     else:
         print("Could not find old network weights")
 
     #训练时，注释以上内容#
+    print("#####2")
 
     # start training
     epsilon = INITIAL_EPSILON
